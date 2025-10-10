@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<TargetFramework>net8.0-windows</TargetFramework>
+		<UseWPF>true</UseWPF>
+		<RootNamespace>Northwind.Modules.Interfaces</RootNamespace>
+	</PropertyGroup>
+	<ItemGroup>
+		<PackageReference Include="Prism.Wpf" Version="9.0.537" />
+	</ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\..\Northwind.Data\Northwind.Data.csproj" />
+		<ProjectReference Include="..\..\Northwind.Mvvm\Northwind.Mvvm.csproj" />
+	</ItemGroup>
+
+</Project>

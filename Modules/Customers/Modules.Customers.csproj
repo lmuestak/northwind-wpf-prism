@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+	  <RootNamespace>Northwind.Modules</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+	  <PackageReference Include="Prism.Wpf" Version="9.0.537" />
+  </ItemGroup>
+  <ItemGroup>
+	  <ProjectReference Include="..\..\Northwind.Core\Northwind.Core.csproj" />
+	  <ProjectReference Include="..\..\Northwind.DataAccess.Interfaces\Northwind.DataAccess.Interfaces.csproj" />
+	  <ProjectReference Include="..\..\Northwind.DataAccess\Northwind.DataAccess.csproj" />
+	  <ProjectReference Include="..\..\Northwind.Data\Northwind.Data.csproj" />
+	  <ProjectReference Include="..\..\Services\Northwind.Services.Interfaces\Northwind.Services.Interfaces.csproj" />
+  </ItemGroup>
+</Project>

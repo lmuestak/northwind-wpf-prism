@@ -1,0 +1,101 @@
+﻿<UserControl x:Class="Northwind.Views.NorthwindLogoView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:Northwind.Views"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             d:DesignHeight="200"
+             d:DesignWidth="200"
+             mc:Ignorable="d">
+    <Border Panel.ZIndex="10"
+            Background="White"
+            BorderBrush="{StaticResource MediumGrayColorBrush}"
+            BorderThickness="0,0,0,1">
+        <Border.Effect>
+            <DropShadowEffect BlurRadius="30"
+                              Opacity=".25"
+                              ShadowDepth="0" />
+        </Border.Effect>
+        <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <!--<Grid.RowDefinitions>
+        <RowDefinition Height="*"/>
+        <RowDefinition Height="Auto"/>
+    </Grid.RowDefinitions>-->
+
+            <Image Height="120"
+                   Margin="20"
+                   HorizontalAlignment="Stretch"
+                   VerticalAlignment="Center"
+                   Panel.ZIndex="100"
+                   Source="/Resources/Nautic.png" />
+
+            <Border Grid.Row="1"
+                    Width="120"
+                    Height="50"
+                    Margin="0,0,0,-50"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Bottom"
+                    Panel.ZIndex="-1"
+                    Background="White"
+                    BorderBrush="{StaticResource MediumGrayColorBrush}"
+                    BorderThickness="1,0,1,1"
+                    CornerRadius="0,0,90,90">
+                <Grid Margin="5,-20,5,0"
+                      HorizontalAlignment="Center"
+                      VerticalAlignment="Center"
+                      ShowGridLines="False">
+                    <Grid.Resources>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="FontFamily" Value="Cambria" />
+                        </Style>
+                    </Grid.Resources>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0"
+                               Grid.RowSpan="2"
+                               Grid.Column="0"
+                               HorizontalAlignment="Stretch"
+                               VerticalAlignment="Top"
+                               FontSize="28"
+                               TextAlignment="Center">
+                        N
+                    </TextBlock>
+                    <TextBlock Grid.Row="0"
+                               Grid.Column="1"
+                               HorizontalAlignment="Stretch"
+                               VerticalAlignment="Bottom"
+                               FontSize="10"
+                               TextAlignment="Center"
+                               TextDecorations="Underline">
+                        ORTHWIN
+                    </TextBlock>
+                    <TextBlock Grid.Row="1"
+                               Grid.Column="1"
+                               HorizontalAlignment="Stretch"
+                               VerticalAlignment="Top"
+                               FontSize="8"
+                               TextAlignment="Center">
+                        TRAIDERS
+                    </TextBlock>
+                    <TextBlock Grid.Row="0"
+                               Grid.RowSpan="2"
+                               Grid.Column="2"
+                               HorizontalAlignment="Stretch"
+                               VerticalAlignment="Top"
+                               FontSize="28"
+                               TextAlignment="Center">
+                        D
+                    </TextBlock>
+
+                </Grid>
+            </Border>
+        </Grid>
+    </Border>
+</UserControl>

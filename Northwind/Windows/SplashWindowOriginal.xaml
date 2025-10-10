@@ -1,0 +1,116 @@
+﻿<Window x:Class="Northwind.Windows.SplashWindowOriginal"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="clr-namespace:Northwind.Windows"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:prism="http://prismlibrary.com/"
+        xmlns:views="clr-namespace:Northwind.Views"
+        Width="320"
+        Height="600"
+        prism:ViewModelLocator.AutoWireViewModel="True"
+        AllowsTransparency="True"
+        Background="{x:Null}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        ResizeMode="NoResize"
+        ShowInTaskbar="False"
+        Style="{StaticResource MaterialDesignWindow}"
+        WindowStartupLocation="CenterScreen"
+        WindowState="Normal"
+        WindowStyle="None"
+        mc:Ignorable="d">
+    <md:Card Margin="2"
+             md:ElevationAssist.Elevation="Dp2"
+             BorderBrush="{StaticResource LightGrayColorBrush}"
+             BorderThickness="2"
+             UniformCornerRadius="6">
+        <Border Background="White">
+            <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <views:NorthwindLogoView />
+                <Grid Grid.Row="1"
+                      Margin="20"
+                      HorizontalAlignment="Stretch"
+                      VerticalAlignment="Stretch">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Border Height="1"
+                            Margin="0,50,0,20"
+                            Background="{StaticResource PrimaryColorBrush}" />
+                    <Grid Grid.Row="1"
+                          HorizontalAlignment="Stretch"
+                          VerticalAlignment="Stretch">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Row="0"
+                                   Margin="0,0,0,20"
+                                   HorizontalAlignment="Stretch"
+                                   VerticalAlignment="Stretch"
+                                   md:TextBlockAssist.AutoToolTip="True"
+                                   FontFamily="Calibri Light"
+                                   FontSize="10"
+                                   FontWeight="Regular"
+                                   Foreground="{StaticResource PrimaryColorBrush}"
+                                   TextAlignment="Justify"
+                                   TextOptions.TextRenderingMode="Aliased"
+                                   TextWrapping="Wrap">
+                            Northwind is a sample application demonstrating the use of PRISM and MATERIAL UI DESIGN in XAML. The application provides a modern UI experience with a complete MVVM architecture.
+                        </TextBlock>
+                        <Grid Grid.Row="1"
+                              Margin="0,10"
+                              HorizontalAlignment="Stretch"
+                              VerticalAlignment="Stretch">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height=".1*" />
+                                <RowDefinition Height=".2*" />
+                            </Grid.RowDefinitions>
+                            <ProgressBar Grid.Row="0"
+                                         Height="4"
+                                         VerticalAlignment="Center"
+                                         VerticalContentAlignment="Center"
+                                         Maximum="{Binding Maximum}"
+                                         Minimum="0"
+                                         Value="{Binding Value}" />
+                            <TextBlock Grid.Row="1"
+                                       HorizontalAlignment="Left"
+                                       VerticalAlignment="Center"
+                                       FontFamily="Calibri"
+                                       FontSize="14"
+                                       FontWeight="SemiBold"
+                                       Foreground="{StaticResource PrimaryColorBrush}"
+                                       Text="{Binding Status}"
+                                       TextWrapping="Wrap" />
+
+                        </Grid>
+                        <TextBlock Grid.Row="2"
+                                   Margin="0,10,0,0"
+                                   HorizontalAlignment="Stretch"
+                                   VerticalAlignment="Stretch"
+                                   md:TextBlockAssist.AutoToolTip="True"
+                                   FontFamily="Calibri Light"
+                                   FontSize="8"
+                                   FontWeight="Regular"
+                                   Foreground="{StaticResource PrimaryColorBrush}"
+                                   TextAlignment="Justify"
+                                   TextOptions.TextRenderingMode="Aliased"
+                                   TextWrapping="Wrap">
+                            Northwind is a trademark of Microsoft Corporation. This application is not affiliated with or endorsed by Microsoft Corporation. All rights reserved.
+                            The application is provided "as is" without warranty of any kind, either expressed or implied, including but not limited to the warranties of merchantability, fitness for a particular purpose, or non-infringement. In no event shall the authors or copyright holders be liable for any claim, damages, or other liability arising from the use of this software.<LineBreak /><LineBreak />
+                            Developed by Leon Muestak as a sample project to showcase the capabilities of PRISM and MATERIAL UI DESIGN in XAML applications.</TextBlock>
+
+                    </Grid>
+                </Grid>
+            </Grid>
+
+        </Border>
+    </md:Card>
+</Window>

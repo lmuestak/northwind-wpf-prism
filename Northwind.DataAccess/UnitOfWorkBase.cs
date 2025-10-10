@@ -1,0 +1,161 @@
+﻿using Microsoft.EntityFrameworkCore;
+using Northwind.Data;
+using Northwind.Services.Interfaces;
+using Prism.Ioc;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
+using System.Threading.Tasks;
+
+namespace Northwind.DataAccess
+{
+    public class UnitOfWorkBase<T> : IUnitOfWork<T> where T : class
+    {
+
+        private readonly NorthwindDbContext _context;
+        private readonly DbSet<T> _dbSet;
+        private bool _disposed = false;
+
+        public UnitOfWorkBase(IContainerExtension container)
+        {
+            Container = container;
+            var connectionString = ConfigurationService.GetConnectionString();
+            var dbProvider = ConfigurationService.GetDbProvider();
+            var optionsBuilder = new DbContextOptionsBuilder<NorthwindDbContext>();
+            if (!string.IsNullOrEmpty(connectionString))
+            {
+                if (dbProvider.Equals("sqlite", StringComparison.OrdinalIgnoreCase))
+                {
+                    optionsBuilder.UseSqlite(connectionString);
+                }
+                else if (dbProvider.Equals("mssql", StringComparison.OrdinalIgnoreCase) || dbProvider.Equals("sqlserver", StringComparison.OrdinalIgnoreCase))
+                {
+                    optionsBuilder.UseSqlServer(connectionString);
+                }
+                else
+                {
+                    throw new InvalidOperationException($"Unsupported database provider: {dbProvider}");
+                }
+            }
+            else
+            {
+                throw new InvalidOperationException("Connection string is not provided.");
+            }
+            _context = new NorthwindDbContext(optionsBuilder.Options);
+            _dbSet = _context.Set<T>();
+        }
+
+        public IContainerExtension Container { get; private set; }
+
+        public IConfigurationService ConfigurationService => Container.Resolve<IConfigurationService>();
+
+        public IEnumerable<T> Get(Expression<Func<T, bool>> filter = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, string includeProperties = "")
+        {
+            IQueryable<T> query = _dbSet;
+
+            if (filter != null)
+            {
+                query = query.Where(filter);
+            }
+
+            foreach (var includeProperty in includeProperties.Split(new char[','], StringSplitOptions.RemoveEmptyEntries))
+            {
+                query = query.Include(includeProperty);
+            }
+
+            if (orderBy != null)
+            {
+                return orderBy(query).ToList();
+            }
+            else
+            {
+                return query.ToList();
+            }
+        }
+
+        public virtual T GetById(object id)
+        {
+            return _dbSet.Find(id);
+        }
+
+        public virtual void Insert(T entity)
+        {
+            _dbSet.Add(entity);
+        }
+
+        public virtual void Delete(object id)
+        {
+            T entityToDelete = _dbSet.Find(id);
+            Delete(entityToDelete);
+        }
+
+        public virtual void Delete(T entityToDelete)
+        {
+            if (_context.Entry(entityToDelete).State == EntityState.Detached)
+            {
+                _dbSet.Attach(entityToDelete);
+            }
+            _dbSet.Remove(entityToDelete);
+        }
+
+        public virtual void Update(T entityToUpdate)
+        {
+            _dbSet.Attach(entityToUpdate);
+            _context.Entry(entityToUpdate).State = EntityState.Modified;
+        }
+
+        public void Dispose()
+        {
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!_disposed)
+            {
+                if (disposing)
+                {
+                    _context.Dispose();
+                }
+                _disposed = true;
+            }
+        }
+
+        public Task<IEnumerable<T>> GetAsync(Expression<Func<T, bool>> filter = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, string includeProperties = "")
+        {
+            IQueryable<T> query = _dbSet;
+
+            if (filter != null)
+            {
+                query = query.Where(filter);
+            }
+
+            foreach (var includeProperty in includeProperties.Split(new char[','], StringSplitOptions.RemoveEmptyEntries))
+            {
+                query = query.Include(includeProperty);
+            }
+
+            if (orderBy != null)
+            {
+                return Task.FromResult<IEnumerable<T>>(orderBy(query).ToList());
+            }
+            else
+            {
+                return Task.FromResult<IEnumerable<T>>(query.ToList());
+            }
+        }
+
+        public int SaveChanges()
+        {
+            return _context.SaveChanges();
+        }
+
+        public Task SaveChangesAsync()
+        {
+            return _context.SaveChangesAsync();
+        }
+
+    }
+}

@@ -1,0 +1,96 @@
+﻿<UserControl x:Class="Northwind.Views.NavigationItemControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:Northwind.Views"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:services="clr-namespace:Northwind.Services;assembly=Northwind.Services"
+             d:DataContext="{d:DesignInstance Type=services:NavigationItemViewModel}"
+             DataContext="{Binding UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+             mc:Ignorable="d">
+    <UserControl.Resources>
+        <Style TargetType="md:PackIcon">
+            <Setter Property="Width" Value="20" />
+            <Setter Property="Height" Value="20" />
+        </Style>
+        <Style BasedOn="{StaticResource MaterialDesignFlatButton}" TargetType="Button">
+            <Setter Property="Margin" Value="0,5" />
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+            <Setter Property="VerticalAlignment" Value="Stretch" />
+            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+            <Setter Property="VerticalContentAlignment" Value="Stretch" />
+        </Style>
+    </UserControl.Resources>
+    <Grid>
+        <Button Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}, Path=DataContext.NavigateToCommand, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}"
+                CommandParameter="{Binding}"
+                Visibility="{Binding Path=HasNoChildren, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BoolToVisiblityConverter}}">
+            <DockPanel HorizontalAlignment="Stretch"
+                       VerticalAlignment="Stretch"
+                       LastChildFill="True">
+                <md:PackIcon HorizontalAlignment="Left"
+                             VerticalAlignment="Center"
+                             Kind="{Binding Path=Icon, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}" />
+                <TextBlock Margin="10,3,0,0"
+                           HorizontalAlignment="Stretch"
+                           VerticalAlignment="Center"
+                           DockPanel.Dock="Right"
+                           Foreground="{StaticResource PrimaryColorBrush}"
+                           Text="{Binding Name, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}" />
+            </DockPanel>
+        </Button>
+        <Expander x:Name="ExpanderMenu"
+                  HorizontalAlignment="Stretch"
+                  VerticalAlignment="Stretch"
+                  Background="{x:Null}"
+                  IsExpanded="False"
+                  Visibility="{Binding Path=HasChildren, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BoolToVisiblityConverter}}">
+            <Expander.Header>
+                <DockPanel Margin="-7,0,0,0"
+                           HorizontalAlignment="Stretch"
+                           VerticalAlignment="Stretch"
+                           LastChildFill="True">
+                    <md:PackIcon HorizontalAlignment="Left"
+                                 VerticalAlignment="Center"
+                                 Foreground="{StaticResource PrimaryColorBrush}"
+                                 Kind="{Binding Path=Icon, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBlock Padding="10,0"
+                               HorizontalAlignment="Stretch"
+                               VerticalAlignment="Center"
+                               DockPanel.Dock="Right"
+                               FontWeight="SemiBold"
+                               Foreground="{StaticResource PrimaryColorBrush}"
+                               Text="{Binding Name, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}" />
+                </DockPanel>
+            </Expander.Header>
+            <ItemsControl x:Name="ListViewMenu"
+                          ItemsSource="{Binding Path=Children, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}"
+                          ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Button Margin="-10,5,0,5"
+                                Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}, Path=DataContext.NavigateToCommand, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}"
+                                CommandParameter="{Binding}"
+                                Visibility="{Binding Path=HasChildren, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BoolToVisiblityConverterInverted}}">
+                            <DockPanel HorizontalAlignment="Stretch"
+                                       VerticalAlignment="Stretch"
+                                       LastChildFill="True">
+                                <md:PackIcon Margin="20,0,0,0"
+                                             HorizontalAlignment="Left"
+                                             VerticalAlignment="Center"
+                                             Kind="{Binding Path=Icon, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}" />
+                                <TextBlock Margin="10,3,0,0"
+                                           HorizontalAlignment="Stretch"
+                                           VerticalAlignment="Center"
+                                           DockPanel.Dock="Right"
+                                           Foreground="{StaticResource PrimaryColorBrush}"
+                                           Text="{Binding Name, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}" />
+                            </DockPanel>
+                        </Button>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </Expander>
+    </Grid>
+</UserControl>

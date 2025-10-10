@@ -1,0 +1,69 @@
+﻿<UserControl x:Class="Northwind.Modules.Default.Views.DefaultView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:Northwind.Modules.Default.Views"
+             xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:prism="http://prismlibrary.com/"
+             prism:ViewModelLocator.AutoWireViewModel="True">
+    <Border>
+
+        <StackPanel Orientation="Vertical">
+            <Image Width="180"
+                   HorizontalAlignment="Stretch"
+                   VerticalAlignment="Stretch"
+                   Source="/Resources/Nautic.png"
+                   Stretch="UniformToFill" />
+            <Border Height="0"
+                    Margin="0,30"
+                    Background="{StaticResource PrimaryColorBrush}" />
+            <TextBlock Margin="0,0,0,10"
+                       HorizontalAlignment="Stretch"
+                       VerticalAlignment="Stretch"
+                       md:TextBlockAssist.AutoToolTip="True"
+                       FontFamily="Calibri Light"
+                       FontSize="12"
+                       FontWeight="Regular"
+                       Foreground="{StaticResource PrimaryColorBrush}"
+                       TextAlignment="Justify"
+                       TextOptions.TextRenderingMode="Aliased"
+                       TextWrapping="Wrap">
+                Northwind Traders<LineBreak /><LineBreak />
+                Northwind Traders is a fictional company that Microsoft created as part of its sample databases. It’s used primarily for learning and demonstration purposes in SQL Server and Microsoft Access. The company is presented as an international gourmet food distributor.</TextBlock>
+            <TextBlock>
+                The Northwind Database
+                The Northwind database is one of Microsoft’s classic sample databases. It contains a set of tables, relationships, and sample data to simulate a real-world business scenario. It’s widely used for practicing SQL queries, database design, and reporting.
+                Main Entities:
+                Customers – Information about clients
+                Suppliers – Vendors providing products
+                Employees – Company staff
+                Products – Items sold
+                Orders and Order Details – Transactions and line items
+                Categories and Shippers
+                Purpose:
+                It’s meant to help developers, students, and database administrators learn how to:
+                Write SQL queries (SELECT, JOIN, GROUP BY, etc.)
+                Explore relationships between tables
+                Build sample reports
+                Experiment with database-driven applications
+                Because of its approachable size and realistic structure, the Northwind database has been a popular teaching tool since the 1990s.
+            </TextBlock>
+            <TextBlock Margin="0,0,0,10"
+                       HorizontalAlignment="Stretch"
+                       VerticalAlignment="Stretch"
+                       md:TextBlockAssist.AutoToolTip="True"
+                       FontFamily="Calibri Light"
+                       FontSize="12"
+                       FontWeight="Regular"
+                       Foreground="{StaticResource PrimaryColorBrush}"
+                       TextAlignment="Justify"
+                       TextOptions.TextRenderingMode="Aliased"
+                       TextWrapping="Wrap">
+                Northwind is a sample application demonstrating the use of PRISM and MATERIAL UI DESIGN in XAML. The application provides a modern UI experience with a complete MVVM architecture.<LineBreak /><LineBreak />
+                Northwind is a trademark of Microsoft Corporation. This application is not affiliated with or endorsed by Microsoft Corporation. All rights reserved.
+                The application is provided "as is" without warranty of any kind, either expressed or implied, including but not limited to the warranties of merchantability, fitness for a particular purpose, or non-infringement. In no event shall the authors or copyright holders be liable for any claim, damages, or other liability arising from the use of this software.<LineBreak /><LineBreak />
+                Developed by Leon Muestak as a sample project to showcase the capabilities of PRISM and MATERIAL UI DESIGN in XAML applications.</TextBlock>
+
+        </StackPanel>
+
+    </Border>
+</UserControl>

@@ -1,0 +1,120 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Remove="Resources\Boat.png" />
+    <None Remove="Resources\Bottle.png" />
+    <None Remove="Resources\Database\Northwind.cub" />
+    <None Remove="Resources\Database\Northwind.db" />
+    <None Remove="Resources\Database\Northwind.mdb" />
+    <None Remove="Resources\Database\Northwind.sqlite" />
+    <None Remove="Resources\Database\Northwind.xml" />
+    <None Remove="Resources\Images\buchanan.jpeg" />
+    <None Remove="Resources\Images\callahan.jpeg" />
+    <None Remove="Resources\Images\davolio.jpeg" />
+    <None Remove="Resources\Images\dodsworth.jpeg" />
+    <None Remove="Resources\Images\fuller.jpeg" />
+    <None Remove="Resources\Images\king.jpeg" />
+    <None Remove="Resources\Images\leverling.jpeg" />
+    <None Remove="Resources\Images\Original\buchanan.png" />
+    <None Remove="Resources\Images\Original\callahan.png" />
+    <None Remove="Resources\Images\Original\davolio.png" />
+    <None Remove="Resources\Images\Original\dodsworth.png" />
+    <None Remove="Resources\Images\Original\fuller.png" />
+    <None Remove="Resources\Images\Original\King.png" />
+    <None Remove="Resources\Images\Original\leverling.png" />
+    <None Remove="Resources\Images\Original\peacock.png" />
+    <None Remove="Resources\Images\Original\suyama.png" />
+    <None Remove="Resources\Images\peacock.jpeg" />
+    <None Remove="Resources\Images\suyama.jpeg" />
+    <None Remove="Resources\Lighthouse.png" />
+    <None Remove="Resources\Logo.png" />
+    <None Remove="Resources\Logo_Nautic.png" />
+    <None Remove="Resources\Nautic.png" />
+    <None Remove="Resources\Northwind.png" />
+    <None Remove="Resources\Northwind_Classic.png" />
+    <None Remove="Resources\Northwind_Logo_Font.png" />
+    <None Remove="Resources\Northwind_Logo_Lighthouse.png" />
+    <None Remove="Resources\Northwind_Minimal.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="MaterialDesignColors" Version="5.2.1" />
+    <PackageReference Include="MaterialDesignThemes" Version="5.2.1" />
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.135" />
+    <PackageReference Include="Prism.Container.Abstractions" Version="9.0.107" />
+    <PackageReference Include="Prism.Container.Unity" Version="9.0.107" />
+    <PackageReference Include="Prism.Core" Version="9.0.537" />
+    <PackageReference Include="Prism.Events" Version="9.0.537" />
+    <PackageReference Include="Prism.Unity" Version="9.0.537" />
+    <PackageReference Include="Prism.Wpf" Version="9.0.537" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Modules\Categories.Interfaces\Modules.Categories.Interfaces.csproj" />
+    <ProjectReference Include="..\Modules\Categories\Modules.Categories.csproj" />
+    <ProjectReference Include="..\Modules\Customers.Interfaces\Modules.Customers.Interfaces.csproj" />
+    <ProjectReference Include="..\Modules\Customers\Modules.Customers.csproj" />
+    <ProjectReference Include="..\Modules\Dashboard.Interfaces\Modules.Dashboard.Interfaces.csproj" />
+    <ProjectReference Include="..\Modules\Dashboard\Modules.Dashboard.csproj" />
+    <ProjectReference Include="..\Modules\Default\Modules.Default.csproj" />
+    <ProjectReference Include="..\Modules\Employees.Interfaces\Modules.Employees.Interfaces.csproj" />
+    <ProjectReference Include="..\Modules\Employees\Modules.Employees.csproj" />
+    <ProjectReference Include="..\Modules\Orders.Interfaces\Modules.Orders.Interfaces.csproj" />
+    <ProjectReference Include="..\Modules\Orders\Modules.Orders.csproj" />
+    <ProjectReference Include="..\Modules\Products.Interfaces\Modules.Products.Interfaces.csproj" />
+    <ProjectReference Include="..\Modules\Products\Modules.Products.csproj" />
+    <ProjectReference Include="..\Northwind.Core\Northwind.Core.csproj" />
+    <ProjectReference Include="..\Northwind.DataAccess.Interfaces\Northwind.DataAccess.Interfaces.csproj" />
+    <ProjectReference Include="..\Northwind.DataAccess\Northwind.DataAccess.csproj" />
+    <ProjectReference Include="..\Northwind.Mvvm\Northwind.Mvvm.csproj" />
+    <ProjectReference Include="..\Services\Northwind.Services.Interfaces\Northwind.Services.Interfaces.csproj" />
+    <ProjectReference Include="..\Services\Northwind.Services\Northwind.Services.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Boat.png" />
+    <Resource Include="Resources\Bottle.png" />
+    <Resource Include="Resources\Database\Northwind.cub" />
+    <Resource Include="Resources\Database\Northwind.db" />
+    <Resource Include="Resources\Database\Northwind.mdb" />
+    <Resource Include="Resources\Database\Northwind.backup.sqlite" />
+    <Resource Include="Resources\Database\Northwind.sqlite" />
+    <Resource Include="Resources\Database\Northwind.xml" />
+    <Resource Include="Resources\Images\buchanan.jpeg" />
+    <Resource Include="Resources\Images\callahan.jpeg" />
+    <Resource Include="Resources\Images\davolio.jpeg" />
+    <Resource Include="Resources\Images\dodsworth.jpeg" />
+    <Resource Include="Resources\Images\fuller.jpeg" />
+    <Resource Include="Resources\Images\king.jpeg" />
+    <Resource Include="Resources\Images\leverling.jpeg" />
+    <Resource Include="Resources\Images\Original\buchanan.png" />
+    <Resource Include="Resources\Images\Original\callahan.png" />
+    <Resource Include="Resources\Images\Original\davolio.png" />
+    <Resource Include="Resources\Images\Original\dodsworth.png" />
+    <Resource Include="Resources\Images\Original\fuller.png" />
+    <Resource Include="Resources\Images\Original\King.png" />
+    <Resource Include="Resources\Images\Original\leverling.png" />
+    <Resource Include="Resources\Images\Original\peacock.png" />
+    <Resource Include="Resources\Images\Original\suyama.png" />
+    <Resource Include="Resources\Images\peacock.jpeg" />
+    <Resource Include="Resources\Images\suyama.jpeg" />
+    <Resource Include="Resources\Lighthouse.png" />
+    <Resource Include="Resources\Logo.png" />
+    <Resource Include="Resources\Logo_Nautic.png" />
+    <Resource Include="Resources\Nautic.png" />
+    <Resource Include="Resources\Northwind.png" />
+    <Resource Include="Resources\Northwind_Classic.png" />
+    <Resource Include="Resources\Northwind_Logo_Font.png" />
+    <Resource Include="Resources\Northwind_Logo_Lighthouse.png" />
+    <Resource Include="Resources\Northwind_Minimal.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Windows\ShellWindowOriginal.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Windows\SplashWindowOriginal.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,39 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+	  <RootNamespace>Northwind.Modules</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Resource Include="..\..\Northwind\Resources\Boat.png" Link="Resources\Boat.png" />
+    <Resource Include="..\..\Northwind\Resources\Bottle.png" Link="Resources\Bottle.png" />
+    <Resource Include="..\..\Northwind\Resources\Lighthouse.png" Link="Resources\Lighthouse.png" />
+    <Resource Include="..\..\Northwind\Resources\Logo.png" Link="Resources\Logo.png" />
+    <Resource Include="..\..\Northwind\Resources\Logo_Nautic.png" Link="Resources\Logo_Nautic.png" />
+    <Resource Include="..\..\Northwind\Resources\Nautic.png" Link="Resources\Nautic.png" />
+    <Resource Include="..\..\Northwind\Resources\Northwind.png" Link="Resources\Northwind.png" />
+    <Resource Include="..\..\Northwind\Resources\Northwind_Classic.png" Link="Resources\Northwind_Classic.png" />
+    <Resource Include="..\..\Northwind\Resources\Northwind_Logo_Font.png" Link="Resources\Northwind_Logo_Font.png" />
+    <Resource Include="..\..\Northwind\Resources\Northwind_Logo_Lighthouse.png" Link="Resources\Northwind_Logo_Lighthouse.png" />
+    <Resource Include="..\..\Northwind\Resources\Northwind_Minimal.png" Link="Resources\Northwind_Minimal.png" />
+  </ItemGroup>
+  <ItemGroup>
+	  <PackageReference Include="Prism.Wpf" Version="9.0.537" />
+  </ItemGroup>
+  <ItemGroup>
+	  <ProjectReference Include="..\..\Northwind.Core\Northwind.Core.csproj" />
+	  <ProjectReference Include="..\..\Northwind.DataAccess.Interfaces\Northwind.DataAccess.Interfaces.csproj" />
+	  <ProjectReference Include="..\..\Northwind.DataAccess\Northwind.DataAccess.csproj" />
+	  <ProjectReference Include="..\..\Northwind.Data\Northwind.Data.csproj" />
+	  <ProjectReference Include="..\..\Services\Northwind.Services.Interfaces\Northwind.Services.Interfaces.csproj" />
+	  <ProjectReference Include="..\Categories.Interfaces\Modules.Categories.Interfaces.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Dialogs\AddCategoryDialogView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+</Project>
