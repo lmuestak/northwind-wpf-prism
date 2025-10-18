@@ -1,14 +1,12 @@
 ﻿using MaterialDesignThemes.Wpf;
-using Northwind.Core;
-using Northwind.Modules.Interfaces;
 using Northwind.Mvvm;
 using Northwind.Services.Interfaces;
 using Northwind.Windows;
 using Prism.Commands;
 using Prism.Ioc;
-using Prism.Navigation;
 using Prism.Navigation.Regions;
 using System;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media.Animation;
 
@@ -22,10 +20,10 @@ namespace Northwind.ViewModels
 
         #region constructor
 
-        public ShellWindowViewModel(IContainerExtension container) : base(container)
-        {
+        //public ShellWindowViewModel(IContainerExtension container) : base(container)
+        //{
          
-        }
+        //}
 
         #endregion
 
@@ -218,8 +216,8 @@ namespace Northwind.ViewModels
         #region authentication
 
         private bool _isAuthenticated = true;
-        private IEmployeeViewModel _currentUser;
-        public IEmployeeViewModel CurrentUser
+        private EmployeeViewModel _currentUser;
+        public EmployeeViewModel CurrentUser
         {
             get { return _currentUser; }
             set
@@ -241,7 +239,7 @@ namespace Northwind.ViewModels
 
         #region navigation
 
-        private GridLength _menuWidth = new(0);
+        private GridLength _menuWidth = new(220);
         public GridLength MenuWidth
         {
             get => _menuWidth;
@@ -255,7 +253,7 @@ namespace Northwind.ViewModels
         }
         public double MenuWidthDouble => MenuWidth.Value;
 
-        private bool _isMenuOpen = false;
+        private bool _isMenuOpen = true;
         public bool IsMenuOpen
         {
             get => _isMenuOpen;
@@ -268,15 +266,15 @@ namespace Northwind.ViewModels
             }
         }
 
-        private DelegateCommand<INavigationItemViewModel> _navigateToCommand;
-        public DelegateCommand<INavigationItemViewModel> NavigateToCommand => _navigateToCommand ??= new DelegateCommand<INavigationItemViewModel>(OnExecuteNavigateCommand, OnCanExecuteNavigateCommand);
+        private AsyncDelegateCommand<INavigationItemViewModel> _navigateToCommand;
+        public AsyncDelegateCommand<INavigationItemViewModel> NavigateToCommand => _navigateToCommand ??= new AsyncDelegateCommand<INavigationItemViewModel>(OnExecuteNavigateCommand, OnCanExecuteNavigateCommand);
 
         private bool OnCanExecuteNavigateCommand(INavigationItemViewModel arg)
         {
             return arg?.Target != null;
         }
 
-        private void OnExecuteNavigateCommand(INavigationItemViewModel obj)
+        private Task OnExecuteNavigateCommand(INavigationItemViewModel obj)
         {
             RegionManager.RequestNavigate(RegionNames.ContentRegion, obj.Target);//, HandleCompletedNavigation);
             var view = GetView(RegionManager.Regions[RegionNames.ContentRegion].Views, (Type)obj.Tag);
@@ -284,6 +282,7 @@ namespace Northwind.ViewModels
             {
                 CurrentViewName = namedView.ViewName;
             }
+            return Task.CompletedTask;
         }
 
         public object GetView(IViewsCollection views, Type viewType)

@@ -6,7 +6,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace Northwind.Core.Controls
+namespace Northwind.Controls
 {
     public class FadingContentControl : ContentControl
     {

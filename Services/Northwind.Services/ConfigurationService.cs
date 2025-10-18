@@ -10,8 +10,8 @@ namespace Northwind.Services
 
         private readonly Configuration _configuration = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.PerUserRoaming);
         private SettingsConfigurationSection _userSettings;
-        private static readonly string[] themes = new string[] { "dark", "light" };
-        private static readonly string[] languages = new string[] { "en", "de", "fr", "it", "es" };
+        private static readonly string[] themes = ["dark", "light"];
+        private static readonly string[] languages = ["en", "de", "fr", "it", "es"];
         public string GetTheme()
         {
             var theme = Settings.Theme;
@@ -59,11 +59,19 @@ namespace Northwind.Services
             var connectionString = Settings.ConnectionString;
             if (!string.IsNullOrWhiteSpace(connectionString))
             {
+#if DEBUG
+                return "Filename=Northwind.debug.sqlite";
+#else
                 return connectionString;
+#endif
             }
             else
             {
-                Settings.ConnectionString = "Filename=Northwind.sqlite"; //"Server=.;Database=Northwind;Trusted_Connection=True;TrustServerCertificate=True"; // Default to Light if not set or invalid
+                var dbFile = "Northwind.sqlite";
+#if DEBUG
+                dbFile = "Northwind.debug.sqlite";
+#endif
+                Settings.ConnectionString = $"Filename={dbFile}"; //"Server=.;Database=Northwind;Trusted_Connection=True;TrustServerCertificate=True"; // Default to Light if not set or invalid
             }
             return Settings.ConnectionString;
         }

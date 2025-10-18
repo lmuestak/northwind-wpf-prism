@@ -1,0 +1,187 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:controls="clr-namespace:Northwind.Controls"
+                    xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/Northwind.Controls;component/Resources/Base.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+    <Style TargetType="controls:DateRangeSlider">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="controls:DateRangeSlider">
+                    <Grid>
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <Grid.Resources>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="Foreground" Value="{StaticResource PrimaryColorBrush}" />
+                            </Style>
+                        </Grid.Resources>
+
+                        <!--  TOP: Min/Max pickers + Mode selector  -->
+                        <DockPanel Grid.Row="0"
+                                   Margin="0,0,0,10"
+                                   LastChildFill="False">
+                            <StackPanel Margin="0,0,20,0"
+                                        HorizontalAlignment="Stretch"
+                                        VerticalAlignment="Stretch"
+                                        DockPanel.Dock="Left"
+                                        Orientation="Vertical"
+                                        Visibility="{Binding ShowMinMaxPickers, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource BoolToVisiblityConverter}}">
+                                <TextBlock HorizontalAlignment="Left"
+                                           VerticalAlignment="Top"
+                                           Text="{Binding MinPickerWatermark, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                                           Visibility="{Binding ShowMinMaxPickerLabels, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource BoolToVisiblityConverter}}" />
+                                <DatePicker x:Name="PART_MinPicker"
+                                            Width="{Binding MinPickerWidth, RelativeSource={RelativeSource TemplatedParent}}"
+                                            DockPanel.Dock="Left"
+                                            SelectedDate="{Binding MinimumDate, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                            ToolTip="{Binding MinPickerWatermark, RelativeSource={RelativeSource TemplatedParent}}"
+                                            Visibility="{Binding ShowMinMaxPickers, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource BoolToVisiblityConverter}}" />
+                            </StackPanel>
+                            <StackPanel Margin="0,0,20,0"
+                                        HorizontalAlignment="Stretch"
+                                        VerticalAlignment="Stretch"
+                                        DockPanel.Dock="Right"
+                                        Orientation="Vertical"
+                                        Visibility="{Binding ShowModeSelector, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource BoolToVisiblityConverter}}">
+                                <TextBlock HorizontalAlignment="Left"
+                                           VerticalAlignment="Top"
+                                           Text="{Binding ModeWatermark, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                                           Visibility="{Binding ShowModeLabel, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource BoolToVisiblityConverter}}" />
+                                <ComboBox Width="140"
+                                          Margin="8,0,0,0"
+                                          DockPanel.Dock="Right"
+                                          SelectedValue="{Binding SlideMode, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"
+                                          SelectedValuePath="Tag">
+                                    <ComboBoxItem Content="Days" Tag="{x:Static controls:DateRangeUnit.Day}" />
+                                    <ComboBoxItem Content="Months" Tag="{x:Static controls:DateRangeUnit.Month}" />
+                                    <ComboBoxItem Content="Quarters" Tag="{x:Static controls:DateRangeUnit.Quarter}" />
+                                    <ComboBoxItem Content="Years" Tag="{x:Static controls:DateRangeUnit.Year}" />
+                                </ComboBox>
+                            </StackPanel>
+                            <StackPanel HorizontalAlignment="Stretch"
+                                        VerticalAlignment="Stretch"
+                                        DockPanel.Dock="Right"
+                                        Orientation="Vertical"
+                                        Visibility="{Binding ShowMinMaxPickers, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource BoolToVisiblityConverter}}">
+                                <TextBlock HorizontalAlignment="Left"
+                                           VerticalAlignment="Top"
+                                           Text="{Binding MaxPickerWatermark, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                                           Visibility="{Binding ShowMinMaxPickerLabels, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource BoolToVisiblityConverter}}" />
+                                <DatePicker x:Name="PART_MaxPicker"
+                                            Width="{Binding MaxPickerWidth, RelativeSource={RelativeSource TemplatedParent}}"
+                                            DockPanel.Dock="Right"
+                                            SelectedDate="{Binding MaximumDate, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                            ToolTip="{Binding MaxPickerWatermark, RelativeSource={RelativeSource TemplatedParent}}" />
+                            </StackPanel>
+                        </DockPanel>
+
+                        <!--  BOTTOM: Track/Thumbs + Ticks  -->
+                        <Grid Grid.Row="2">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+
+                            <!--  Track + Thumbs  -->
+                            <Grid Grid.Row="0" Margin="0">
+                                <Border Height="6"
+                                        Margin="0,0,0,16"
+                                        VerticalAlignment="Center"
+                                        Background="#1A000000"
+                                        CornerRadius="0" />
+                                <Canvas x:Name="PART_Track" Height="24">
+                                    <Border x:Name="PART_SelectedRange"
+                                            Height="6"
+                                            VerticalAlignment="Center"
+                                            Background="{StaticResource SecondaryColorBrush}"
+                                            CornerRadius="0" />
+                                    <Thumb x:Name="PART_LeftThumb"
+                                           Width="{TemplateBinding ThumbWidth}"
+                                           Height="18"
+                                           Margin="0,-5,0,0"
+                                           Cursor="SizeWE">
+                                        <Thumb.Template>
+                                            <ControlTemplate TargetType="Thumb">
+                                                <Border Width="{TemplateBinding Width}"
+                                                        Height="{TemplateBinding Height}"
+                                                        Background="{StaticResource PrimaryColorBrush}"
+                                                        BorderThickness="0"
+                                                        CornerRadius="0"
+                                                        SnapsToDevicePixels="True" />
+                                            </ControlTemplate>
+                                        </Thumb.Template>
+                                    </Thumb>
+                                    <Thumb x:Name="PART_RightThumb"
+                                           Width="{TemplateBinding ThumbWidth}"
+                                           Height="18"
+                                           Margin="0,-5,0,0"
+                                           Cursor="SizeWE">
+                                        <Thumb.Template>
+                                            <ControlTemplate TargetType="Thumb">
+                                                <Border Width="{TemplateBinding Width}"
+                                                        Height="{TemplateBinding Height}"
+                                                        Background="{StaticResource PrimaryColorBrush}"
+                                                        BorderThickness="0"
+                                                        CornerRadius="0"
+                                                        SnapsToDevicePixels="True" />
+                                            </ControlTemplate>
+                                        </Thumb.Template>
+                                    </Thumb>
+                                </Canvas>
+                            </Grid>
+
+
+                            <!--  Ticks + labels canvas  -->
+                            <Canvas x:Name="PART_Ticks"
+                                    Grid.Row="1"
+                                    Height="28"
+                                    Visibility="{Binding ShowTicks, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource BoolToVisiblityConverter}}" />
+                        </Grid>
+
+                        <DockPanel Grid.Row="1"
+                                   Margin="0,10"
+                                   LastChildFill="False"
+                                   Visibility="{Binding ShowSelectionPickers, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource BoolToVisiblityConverter}}">
+                            <!--  Left: Minimum picker  -->
+                            <StackPanel Margin="0,0,20,0"
+                                        HorizontalAlignment="Stretch"
+                                        VerticalAlignment="Stretch"
+                                        DockPanel.Dock="Left"
+                                        Orientation="Vertical">
+                                <TextBlock HorizontalAlignment="Left"
+                                           VerticalAlignment="Top"
+                                           Text="{Binding StartDatePickerWatermark, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                                           Visibility="{Binding ShowSelectionPickerLabels, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource BoolToVisiblityConverter}}" />
+                                <DatePicker x:Name="PART_StartDatePicker"
+                                            Width="{Binding StartDatePickerWidth, RelativeSource={RelativeSource TemplatedParent}}"
+                                            SelectedDate="{Binding StartDate, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            </StackPanel>
+
+                            <!--  Right: Maximum picker  -->
+                            <StackPanel HorizontalAlignment="Stretch"
+                                        VerticalAlignment="Stretch"
+                                        DockPanel.Dock="Left"
+                                        Orientation="Vertical">
+                                <TextBlock HorizontalAlignment="Left"
+                                           VerticalAlignment="Top"
+                                           Text="{Binding EndDatePickerWatermark, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                                           Visibility="{Binding ShowSelectionPickerLabels, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource BoolToVisiblityConverter}}" />
+                                <DatePicker x:Name="PART_EndDatePicker"
+                                            Width="{Binding EndDatePickerWidth, RelativeSource={RelativeSource TemplatedParent}}"
+                                            DockPanel.Dock="Right"
+                                            SelectedDate="{Binding EndDate, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            </StackPanel>
+                        </DockPanel>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

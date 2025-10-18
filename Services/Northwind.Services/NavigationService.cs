@@ -13,9 +13,9 @@ namespace Northwind.Services
 
         private ObservableCollection<INavigationItemViewModel> _items;
 
-        public NavigationService(IContainerExtension container) : base(container)
-        {
-        }
+        //public NavigationService(IContainerExtension container) : base(container)
+        //{
+        //}
         public ObservableCollection<INavigationItemViewModel> Items
         {
             get

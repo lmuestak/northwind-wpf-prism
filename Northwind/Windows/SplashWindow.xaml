@@ -41,7 +41,7 @@
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
                     <Border Height="1"
-                            Margin="0,50,0,20"
+                            Margin="0,120,0,20"
                             Background="{StaticResource PrimaryColorBrush}" />
                     <Grid Grid.Row="1"
                           HorizontalAlignment="Stretch"

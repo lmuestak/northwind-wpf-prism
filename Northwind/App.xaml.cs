@@ -1,6 +1,5 @@
 ﻿using Northwind.DataAccess;
 using Northwind.Dialogs;
-using Northwind.Modules;
 using Northwind.Mvvm;
 using Northwind.Services;
 using Northwind.Services.Interfaces;
@@ -13,7 +12,6 @@ using Prism.Mvvm;
 using System;
 using System.Linq;
 using System.Reflection;
-using System.Threading;
 using System.Windows;
 using System.Windows.Threading;
 
@@ -30,7 +28,7 @@ namespace Northwind
 
         protected override void OnStartup(StartupEventArgs e)
         {
-            _splashWindow = new SplashWindow(){ DataContext = new SplashWindowViewModel(null) };
+            _splashWindow = new SplashWindow(){ DataContext = new SplashWindowViewModel() };
             _splashWindow.Show();
             _splashWindow.Activate();
             base.OnStartup(e);
@@ -45,6 +43,7 @@ namespace Northwind
 
         protected override void RegisterTypes(IContainerRegistry container)
         {
+            container.Register<ViewModelBase>();
             container.Register<SplashWindowViewModel>();
             container.RegisterSingleton<IConfigurationService, ConfigurationService>();
 
@@ -71,8 +70,18 @@ namespace Northwind
 
         private void RegisterDataAccessServices(IContainerRegistry container)
         {
-            //container.RegisterSingleton<ICategoryUnitOfWork, CategoryUnitOfWork>();
+            container.RegisterSingleton<IDashboardDataManager, DashboardDataManager>();
+            container.RegisterSingleton<ICategoryUnitOfWork, CategoryUnitOfWork>();
+            container.RegisterSingleton<ICustomerUnitOfWork, CustomerUnitOfWork>();
+            container.RegisterSingleton<IEmployeeTerritoryUnitOfWork, EmployeeTerritoryUnitOfWork>();
             container.RegisterSingleton<IEmployeeUnitOfWork, EmployeeUnitOfWork>();
+            container.RegisterSingleton<IOrderDetailUnitOfWork, OrderDetailUnitOfWork>();
+            container.RegisterSingleton<IOrderUnitOfWork, OrderUnitOfWork>();
+            container.RegisterSingleton<IProductUnitOfWork, ProductUnitOfWork>();
+            container.RegisterSingleton<IRegionUnitOfWork, RegionUnitOfWork>();
+            container.RegisterSingleton<IShipperUnitOfWork, ShipperUnitOfWork>();
+            container.RegisterSingleton<ISupplierUnitOfWork, SupplierUnitOfWork>();
+            container.RegisterSingleton<ITerritoryUnitOfWork, TerritoryUnitOfWork>();
         }
         protected override void ConfigureModuleCatalog(IModuleCatalog moduleCatalog)
         {
@@ -146,6 +155,13 @@ namespace Northwind
                     viewModelName = $"{viewName}ViewModel, {viewAssemblyName}";
                     type = Type.GetType(viewModelName);
                 }
+                if (type == null)
+                {
+                    viewName = viewType.FullName.Replace(".Widgets.", ".ViewModels.Widgets."); // Example: change namespace
+                    viewAssemblyName = viewType.GetTypeInfo().Assembly.FullName;
+                    viewModelName = $"{viewName}ViewModel, {viewAssemblyName}";
+                    type = Type.GetType(viewModelName);
+                }
                 return type;
             });
         }
@@ -159,8 +175,12 @@ namespace Northwind
         {
             try
             {
-                var target = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Northwind.sqlite");
-                var uri = new Uri($"pack://application:,,,/Northwind;component/Resources/Database/Northwind.sqlite");
+                var dbName = "Northwind.sqlite";
+#if DEBUG
+                dbName = "Northwind.Debug.sqlite";
+#endif
+                var target = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, $"{dbName}");
+                var uri = new Uri($"pack://application:,,,/Northwind;component/Resources/Database/{dbName}");
                 var info = GetResourceStream(uri);
                 if (info != null && !System.IO.File.Exists(target))
                 {

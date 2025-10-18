@@ -3,7 +3,7 @@ using LiveCharts.Wpf;
 using System.ComponentModel;
 using System.Windows.Controls;
 
-namespace Northwind.Modules.Controls
+namespace Northwind.Controls
 {
     /// <summary>
     /// Interaction logic for CartesianTooltipControl.xaml

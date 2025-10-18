@@ -6,11 +6,11 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:prism="http://prismlibrary.com/"
-             xmlns:viewmodels="clr-namespace:Northwind.ViewModels"
              xmlns:views="clr-namespace:Northwind.Views"
-             Width="300"
-             MinHeight="480"
-             d:DataContext="{d:DesignInstance Type=viewmodels:LoginDialogViewModel}"
+             xmlns:vms="clr-namespace:Northwind.ViewModels"
+             Width="320"
+             MinHeight="600"
+             d:DataContext="{d:DesignInstance Type=vms:LoginDialogViewModel}"
              prism:ViewModelLocator.AutoWireViewModel="True"
              Background="{x:Null}"
              FontFamily="{DynamicResource MaterialDesignFont}"
@@ -23,20 +23,23 @@
         <Border HorizontalAlignment="Stretch"
                 VerticalAlignment="Stretch"
                 Background="White">
-            <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <Grid HorizontalAlignment="Stretch"
+                  VerticalAlignment="Stretch"
+                  ShowGridLines="{Binding Path=IsInDebugMode}">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
-
                 <views:NorthwindLogoView />
                 <Border Grid.Row="1"
                         HorizontalAlignment="Stretch"
                         VerticalAlignment="Stretch"
                         Visibility="{Binding Path=IsLoading, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BoolToVisiblityConverter}}">
-                    <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
-                        <ProgressBar Width="128"
-                                     Height="128"
+                    <Grid HorizontalAlignment="Center"
+                          VerticalAlignment="Center"
+                          ShowGridLines="{Binding Path=IsInDebugMode}">
+                        <ProgressBar Width="160"
+                                     Height="160"
                                      HorizontalAlignment="Center"
                                      VerticalAlignment="Center"
                                      IsIndeterminate="True"
@@ -50,28 +53,64 @@
                 </Border>
                 <Grid Grid.Row="1"
                       Margin="20"
+                      ShowGridLines="{Binding Path=IsInDebugMode}"
                       Visibility="{Binding Path=IsLoading, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BoolToVisiblityConverterInverted}}">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
 
-                    <Grid Grid.Row="1" Margin="0,50,0,20">
+                    <Grid Grid.Row="1" Margin="0,120,0,-10">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
                             <RowDefinition Height="*" />
+                            <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
                         <ComboBox Grid.Row="0"
                                   md:ComboBoxAssist.ShowSelectedItem="True"
                                   md:HintAssist.Hint="Select an employee"
                                   md:HintAssist.HintOpacity=".26"
-                                  DisplayMemberPath="FullNameWithPositionAndTitle"
                                   ItemsSource="{Binding Path=Employees}"
                                   SelectedValue="{Binding SelectedEmployee}"
-                                  Style="{StaticResource MaterialDesignComboBox}" />
+                                  Style="{StaticResource MaterialDesignComboBox}">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid HorizontalAlignment="Stretch"
+                                          VerticalAlignment="Stretch"
+                                          ShowGridLines="{Binding Path=IsInDebugMode}">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="10" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Border HorizontalAlignment="Center"
+                                                VerticalAlignment="Center"
+                                                BorderBrush="#F5F5F5"
+                                                BorderThickness="4"
+                                                CornerRadius="90">
+                                            <Rectangle Width="24"
+                                                       Height="24"
+                                                       RadiusX="90"
+                                                       RadiusY="90">
+                                                <Rectangle.Fill>
+                                                    <ImageBrush ImageSource="{Binding Path=LastName, Converter={StaticResource NameToImageConverter}}" />
+                                                </Rectangle.Fill>
+                                            </Rectangle>
+                                        </Border>
+                                        <StackPanel Grid.Column="2"
+                                                    HorizontalAlignment="Stretch"
+                                                    VerticalAlignment="Stretch">
+                                            <TextBlock Foreground="{StaticResource PrimaryColorBrush}" Text="{Binding FullName}" />
+                                            <TextBlock FontSize="10"
+                                                       Foreground="{StaticResource DarkGrayColorBrush}"
+                                                       Text="{Binding TitleOfCourtesyAndPosition}" />
+                                        </StackPanel>
+                                    </Grid>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
                         <TextBox Grid.Row="1"
                                  Margin="0,10"
                                  md:HintAssist.Hint="or enter e-Mail of an employee"
@@ -86,15 +125,7 @@
                                      md:PasswordBoxAssist.Password="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                      md:TextFieldAssist.HasClearButton="True"
                                      Style="{StaticResource MaterialDesignRevealPasswordBox}" />
-                        <Button Grid.Row="3"
-                                Height="42"
-                                Margin="0,15"
-                                HorizontalAlignment="Stretch"
-                                VerticalAlignment="Stretch"
-                                Command="{Binding LoginCommand}"
-                                Content="Login"
-                                Style="{StaticResource MaterialDesignRaisedButton}" />
-                        <TextBlock Grid.Row="4"
+                        <TextBlock Grid.Row="3"
                                    Margin="0,10"
                                    HorizontalAlignment="Stretch"
                                    VerticalAlignment="Stretch"
@@ -118,6 +149,15 @@
                                 </Style>
                             </TextBlock.Style>
                         </TextBlock>
+                        <Button Grid.Row="4"
+                                Height="42"
+                                Margin="0,15"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Bottom"
+                                Command="{Binding LoginCommand}"
+                                Content="Login"
+                                Style="{StaticResource MaterialDesignRaisedButton}" />
+
                     </Grid>
                 </Grid>
 

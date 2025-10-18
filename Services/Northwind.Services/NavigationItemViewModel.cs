@@ -4,7 +4,6 @@ using Northwind.Services.Interfaces;
 using Prism.Ioc;
 using System;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 
 namespace Northwind.Services
 {
@@ -24,9 +23,9 @@ namespace Northwind.Services
         private INavigationItemViewModel _parent;
         private ObservableCollection<INavigationItemViewModel> _children;
 
-        public NavigationItemViewModel(IContainerExtension container) : base(container)
-        {
-        }
+        //public NavigationItemViewModel(IContainerExtension container) : base(container)
+        //{
+        //}
 
         public string Id
         {

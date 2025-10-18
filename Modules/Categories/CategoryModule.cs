@@ -1,16 +1,14 @@
 ﻿using MaterialDesignThemes.Wpf;
 using Northwind.DataAccess;
-using Northwind.Modules.Dialogs;
-using Northwind.Modules.Interfaces;
-using Northwind.Modules.ViewModels;
-using Northwind.Modules.Views;
 using Northwind.Services.Interfaces;
+using Northwind.ViewModels;
+using Northwind.Views;
 using Prism.Ioc;
 using Prism.Modularity;
 using Prism.Navigation.Regions;
 using System;
 
-namespace Northwind.Modules
+namespace Northwind
 {
     public class CategoryModule : IModule
     {
@@ -40,11 +38,11 @@ namespace Northwind.Modules
 
             registry.Register<CategoryListViewModel>();
             registry.Register<CategoryViewModel>();
-            registry.Register<EditCategoryDialogViewModel>();
-            registry.Register<AddCategoryDialogViewModel>();
+            //registry.Register<EditCategoryDialogViewModel>();
+            //registry.Register<AddCategoryDialogViewModel>();
 
-            registry.RegisterDialog<AddCategoryDialogView, AddCategoryDialogViewModel>(nameof(AddCategoryDialogView));
-            registry.RegisterDialog<EditCategoryDialogView, EditCategoryDialogViewModel>(nameof(EditCategoryDialogView));
+            //registry.RegisterDialog<AddCategoryDialogView, AddCategoryDialogViewModel>(nameof(AddCategoryDialogView));
+            //registry.RegisterDialog<EditCategoryDialogView, EditCategoryDialogViewModel>(nameof(EditCategoryDialogView));
             registry.RegisterForNavigation<CategoryListView>(nameof(CategoryListView));
         }
     }

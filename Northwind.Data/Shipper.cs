@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Northwind.Data
@@ -21,17 +20,17 @@ namespace Northwind.Data
         /// </summary>
         [Required]
         [StringLength(40)]
-        public string CompanyName { get; set; }
+        public string? CompanyName { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the phone.
         /// </summary>
         [StringLength(24)]
-        public string Phone { get; set; }
+        public string? Phone { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the orders.
         /// </summary>
-        public virtual ICollection<Order> Orders { get; set; }
+        public virtual ICollection<Order>? Orders { get; set; }
     }
 }

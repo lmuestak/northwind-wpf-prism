@@ -5,28 +5,30 @@ using Prism.Mvvm;
 using Prism.Navigation;
 using Prism.Navigation.Regions;
 using System;
+using Unity;
 
 namespace Northwind.Mvvm
 {
     public abstract class ViewModelBase : BindableBase, INavigationAware, IConfirmNavigationRequest, IDestructible
     {
 
-        public ViewModelBase(IContainerExtension container)
-        {
-            Container = container;
-        }
-
+#if DEBUG
+                private bool _isInDebugMode = true;
+#else
+                private bool _isInDebugMode = false;
+#endif
         #region services
 
-        public IShellWindowViewModel ShellViewModel => Container.Resolve<IShellWindowViewModel>();
-        public IContainerExtension Container { get; private set; }
+        [Dependency]
+        public IContainerExtension Container { get ; set; }
         public IRegionManager RegionManager => Container.Resolve<IRegionManager>();
         public IModuleManager ModuleManager => Container.Resolve<IModuleManager>();
         public IModuleCatalog ModuleCatalog => Container.Resolve<IModuleCatalog>();
         public IConfigurationService ConfigurationService => Container.Resolve<IConfigurationService>();
         public IMessageService MessageService => Container.Resolve<IMessageService>();
         public INavigationService NavigationService => Container.Resolve<INavigationService>();
-
+        public IShellWindowViewModel ShellViewModel => Container.Resolve<IShellWindowViewModel>();
+         
         #endregion
 
         #region loading indicator
@@ -38,9 +40,15 @@ namespace Northwind.Mvvm
             set => SetProperty(ref _isLoading, value);
         }
 
-        #endregion
+        public bool IsInDebugMode
+        {
+            get => _isInDebugMode;
+            set => SetProperty(ref _isInDebugMode, value);
+        }
 
-        #region navigation
+#endregion
+
+            #region navigation
 
         public virtual void ConfirmNavigationRequest(NavigationContext navigationContext, Action<bool> continuationCallback)
         {

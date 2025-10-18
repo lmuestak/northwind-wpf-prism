@@ -30,7 +30,8 @@
         </Border.Effect>
         <Grid Margin="5"
               HorizontalAlignment="Stretch"
-              VerticalAlignment="Stretch">
+              VerticalAlignment="Stretch"
+              ShowGridLines="{Binding Path=IsInDebugMode}">
 
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
@@ -89,7 +90,8 @@
             <Grid Grid.Column="2"
                   Margin="10,1,0,0"
                   HorizontalAlignment="Stretch"
-                  VerticalAlignment="Stretch">
+                  VerticalAlignment="Stretch"
+                  ShowGridLines="{Binding Path=IsInDebugMode}">
                 <Grid.Resources>
                     <Style TargetType="md:PackIcon">
                         <Setter Property="Width" Value="40" />
@@ -106,8 +108,39 @@
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="5" />
                     <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="5" />
+                    <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
-                <Button Grid.Column="2"
+                <ToggleButton Grid.Column="2"
+                              Width="32"
+                              Height="32"
+                              Margin="0,0,10,0"
+                              IsChecked="{Binding Path=IsInDebugMode, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}">
+                    <ToggleButton.Style>
+                        <Style BasedOn="{StaticResource MaterialDesignIconButton}" TargetType="{x:Type ToggleButton}">
+                            <Setter Property="Content">
+                                <Setter.Value>
+                                    <md:PackIcon Width="22"
+                                                 Height="22"
+                                                 Kind="Bug" />
+                                </Setter.Value>
+                            </Setter>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Content">
+                                        <Setter.Value>
+                                            <md:PackIcon Width="22"
+                                                         Height="22"
+                                                         Foreground="{StaticResource MediumRedColorBrush}"
+                                                         Kind="Bug" />
+                                        </Setter.Value>
+                                    </Setter>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ToggleButton.Style>
+                </ToggleButton>
+                <Button Grid.Column="4"
                         Width="32"
                         Height="32"
                         Command="{Binding Path=ToggleThemeCommand}"
@@ -127,7 +160,7 @@
                         </Style>
                     </Button.Style>
                 </Button>
-                <Button Grid.Column="4"
+                <Button Grid.Column="6"
                         Width="32"
                         Height="32"
                         Command="{Binding Path=MinimizeWindowStateCommand}">
@@ -143,7 +176,7 @@
                         </Style>
                     </Button.Style>
                 </Button>
-                <Button Grid.Column="6"
+                <Button Grid.Column="8"
                         Width="32"
                         Height="32"
                         Command="{Binding Path=MaximizeOrNormalizeWindowStateCommand}">
@@ -172,7 +205,7 @@
                         </Style>
                     </Button.Style>
                 </Button>
-                <Button Grid.Column="8"
+                <Button Grid.Column="10"
                         Width="32"
                         Height="32"
                         Margin="0,0,10,0"

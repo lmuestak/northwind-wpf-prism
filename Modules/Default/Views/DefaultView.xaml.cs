@@ -1,7 +1,6 @@
-﻿using Northwind.Core;
-using System.Windows.Controls;
+﻿using System.Windows.Controls;
 
-namespace Northwind.Modules.Default.Views
+namespace Northwind.Views
 {
     /// <summary>
     /// Interaction logic for ViewA.xaml

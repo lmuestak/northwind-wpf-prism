@@ -31,9 +31,9 @@ namespace Northwind.Data
         /// <summary>
         /// Gets or sets the picture.
         /// </summary>
-        public byte[]? Picture { get; set; }
-        public byte[]? Icon17 { get; set; }
-        public byte[]? Icon25 { get; set; }
+        public byte[]? Picture { get; set; } = [];
+        public byte[]? Icon17 { get; set; } = [];
+        public byte[]? Icon25 { get; set; } = [];
 
         /// <summary>
         /// Gets or sets the products.

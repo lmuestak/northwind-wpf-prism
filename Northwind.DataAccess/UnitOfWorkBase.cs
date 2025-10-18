@@ -46,6 +46,101 @@ namespace Northwind.DataAccess
             _dbSet = _context.Set<T>();
         }
 
+        /*
+        public void RegisterEntities(IContainerRegistry register)
+        {
+            // Register Entities
+            if (!register.IsRegistered<Category>())
+            {
+                Container.Register<Category>();
+            }
+            if (!register.IsRegistered<Product>())
+            {
+                Container.Register<Product>();
+            }
+            if (!register.IsRegistered<Customer>())
+            {
+                Container.Register<Customer>();
+            }
+            if (!register.IsRegistered<Employee>())
+            {
+                Container.Register<Employee>();
+            }
+            if (!register.IsRegistered<Order>())
+            {
+                Container.Register<Order>();
+            }
+            if (!register.IsRegistered<Supplier>())
+            {
+                Container.Register<Supplier>();
+            }
+            if (!register.IsRegistered<Shipper>())
+            {
+                Container.Register<Shipper>();
+            }
+            if (!register.IsRegistered<Territory>())
+            {
+                Container.Register<Territory>();
+            }
+            if (!register.IsRegistered<Region>())
+            {
+                Container.Register<Region>();
+            }
+            if (!register.IsRegistered<OrderDetail>())
+            {
+                Container.Register<OrderDetail>();
+            }
+            if (!register.IsRegistered<EmployeeTerritory>())
+            {
+                Container.Register<EmployeeTerritory>();
+            }
+            // Register ViewModels
+            if (!register.IsRegistered<CategoryViewModel>())
+            {
+                Container.Register<CategoryViewModel>();
+            }
+            if (!register.IsRegistered<ProductViewModel>())
+            {
+                Container.Register<ProductViewModel>();
+            }
+            if (!register.IsRegistered<CustomerViewModel>())
+            {
+                Container.Register<CustomerViewModel>();
+            }
+            if (!register.IsRegistered<EmployeeViewModel>())
+            {
+                Container.Register<EmployeeViewModel>();
+            }
+            if (!register.IsRegistered<OrderViewModel>())
+            {
+                Container.Register<OrderViewModel>();
+            }
+            if (!register.IsRegistered<SupplierViewModel>())
+            {
+                Container.Register<SupplierViewModel>();
+            }
+            if (!register.IsRegistered<ShipperViewModel>())
+            {
+                Container.Register<ShipperViewModel>();
+            }
+            if (!register.IsRegistered<TerritoryViewModel>())
+            {
+                Container.Register<TerritoryViewModel>();
+            }
+            if (!register.IsRegistered<RegionViewModel>())
+            {
+                Container.Register<RegionViewModel>();
+            }
+            if (!register.IsRegistered<OrderDetailViewModel>())
+            {
+                Container.Register<OrderDetailViewModel>();
+            }
+            if (!register.IsRegistered<EmployeeTerritoryViewModel>())
+            {
+                Container.Register<EmployeeTerritoryViewModel>();
+            }
+        }
+        */
         public IContainerExtension Container { get; private set; }
 
         public IConfigurationService ConfigurationService => Container.Resolve<IConfigurationService>();

@@ -3,8 +3,11 @@ using Northwind.Data;
 using Northwind.Services.Interfaces;
 using Prism.Ioc;
 using System;
-using System.Collections.ObjectModel;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Runtime.CompilerServices;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Northwind.DataAccess
@@ -13,7 +16,6 @@ namespace Northwind.DataAccess
     {
         private bool _disposed = false;
         private readonly NorthwindDbContext _context;
-        private readonly IContainerExtension _container;
         public DashboardDataManager(IContainerExtension container)
         {
             Container = container;
@@ -62,43 +64,81 @@ namespace Northwind.DataAccess
                 _disposed = true;
             }
         }
-
-        public Task<ObservableCollection<SalesOverviewByCategory>> GetSalesOverviewByCategoriesAsync()
+        public async Task<IReadOnlyList<T>> GetAsync<T>(QuerySpecification<T> specification, CancellationToken cancellationToken = default) where T : class
         {
-            var q = Context.Categories
-                .Join(Context.Products, c => c.CategoryId, p => p.CategoryId, (c, p) => new { c, p })
-                .Join(Context.ExtendedOrderDetails, cp => cp.p.ProductId, ode => ode.ProductId, (cp, ode) => new { cp.c, cp.p, ode })
-                .Join(Context.Orders, cpo => cpo.ode.OrderId, o => o.OrderId, (cpo, o) => new { cpo.c, cpo.p, cpo.ode, o })
-                .Select(x => new
-                {
-                    x.c.CategoryId,
-                    x.p.ProductId,
-                    x.o.OrderId,
-                    x.c.CategoryName,
-                    x.p.ProductName,
-                    x.o.OrderDate,
-                    x.ode.UnitPrice,
-                    x.ode.Quantity,
-                    x.ode.Discount
-                });
-            return Task.FromResult(new ObservableCollection<SalesOverviewByCategory>(q.AsEnumerable().Select(x => new SalesOverviewByCategory
+            ArgumentNullException.ThrowIfNull(specification);
+
+            IQueryable<T> query = BuildQuery(specification);
+
+            // Materialize
+            Debug.WriteLine(query.ToQueryString());
+            var list = await query.ToListAsync(cancellationToken);
+            return list;
+        }
+
+        public IAsyncEnumerable<T> StreamAsync<T>(QuerySpecification<T> specification, CancellationToken cancellationToken = default) where T : class
+        {
+            ArgumentNullException.ThrowIfNull(specification);
+            IQueryable<T> query = BuildQuery(specification);
+
+            // Stream without buffering the entire result set.
+            // WithCancellation propagates the provided token during enumeration.
+            return Enumerate(query, cancellationToken);
+        }
+
+        private static async IAsyncEnumerable<T> Enumerate<T>(IQueryable<T> query, [EnumeratorCancellation] CancellationToken cancellationToken)
+        {
+            await foreach (var item in query.AsAsyncEnumerable().WithCancellation(cancellationToken))
             {
-                CategoryId = x.CategoryId,
-                ProductId = x.ProductId,
-                OrderId = x.OrderId,
-                CategoryName = x.CategoryName,
-                ProductName = x.ProductName,
-                OrderDate = x.OrderDate,
-                UnitPrice = x.UnitPrice,
-                Quantity = x.Quantity,
-                DiscountPercent = x.Discount
-            })));
+                yield return item;
+            }
         }
 
-        public Task<ObservableCollection<SalesOverviewByEmployee>> GetSalesOverviewByEmployeesAsync()
+        private IQueryable<T> BuildQuery<T>(QuerySpecification<T> specification) where T : class
         {
-            var sales = Context.SalesOverviewByEmployees.AsNoTracking().ToList();
-            return Task.FromResult(new ObservableCollection<SalesOverviewByEmployee>(sales));
+            IQueryable<T> query = Context.Set<T>();
+
+            // Tracking mode
+            query = specification.Tracking switch
+            {
+                TrackingMode.NoTracking => query.AsNoTracking(),
+                TrackingMode.Track => query, // default tracking
+                _ => query
+            };
+
+            // Includes
+            if (specification.Includes is { Length: > 0 })
+            {
+                foreach (var include in specification.Includes)
+                    query = query.Include(include);
+            }
+
+            // Filter
+            if (specification.Filter is not null)
+                query = query.Where(specification.Filter);
+
+            // OrderBy
+            if (specification.OrderBy is not null)
+                query = specification.OrderBy(query);
+
+            // Pagination (apply only if provided)
+            if (specification.Skip is int skip && skip > 0)
+                query = query.Skip(skip);
+
+            if (specification.Take is int take && take > 0)
+                query = query.Take(take);
+
+            return query;
         }
+
+        // Dispose/AsyncDispose simply delegate to the DbContext if needed.
+        public ValueTask DisposeAsync()
+        {
+            // If your container controls DbContext lifetime, you might NO-OP here.
+            if (_context is IAsyncDisposable ad) return ad.DisposeAsync();
+            _context.Dispose();
+            return ValueTask.CompletedTask;
+        }
+
     }
 }

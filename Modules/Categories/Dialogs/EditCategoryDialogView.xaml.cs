@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Northwind.Modules.Dialogs
+namespace Northwind.Dialogs
 {
     /// <summary>
     /// Interaction logic for EditCategoryDialogView.xaml

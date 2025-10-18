@@ -5,17 +5,6 @@
 		<RootNamespace>Northwind.Modules</RootNamespace>
 	</PropertyGroup>
 	<ItemGroup>
-	  <Resource Include="..\..\Northwind\Resources\Images\buchanan.jpeg" Link="Resources\Images\buchanan.jpeg" />
-	  <Resource Include="..\..\Northwind\Resources\Images\callahan.jpeg" Link="Resources\Images\callahan.jpeg" />
-	  <Resource Include="..\..\Northwind\Resources\Images\davolio.jpeg" Link="Resources\Images\davolio.jpeg" />
-	  <Resource Include="..\..\Northwind\Resources\Images\dodsworth.jpeg" Link="Resources\Images\dodsworth.jpeg" />
-	  <Resource Include="..\..\Northwind\Resources\Images\fuller.jpeg" Link="Resources\Images\fuller.jpeg" />
-	  <Resource Include="..\..\Northwind\Resources\Images\king.jpeg" Link="Resources\Images\king.jpeg" />
-	  <Resource Include="..\..\Northwind\Resources\Images\leverling.jpeg" Link="Resources\Images\leverling.jpeg" />
-	  <Resource Include="..\..\Northwind\Resources\Images\peacock.jpeg" Link="Resources\Images\peacock.jpeg" />
-	  <Resource Include="..\..\Northwind\Resources\Images\suyama.jpeg" Link="Resources\Images\suyama.jpeg" />
-	</ItemGroup>
-	<ItemGroup>
 	  <Resource Include="..\..\Northwind\Resources\Boat.png" Link="Resources\Boat.png" />
 	  <Resource Include="..\..\Northwind\Resources\Bottle.png" Link="Resources\Bottle.png" />
 	  <Resource Include="..\..\Northwind\Resources\Lighthouse.png" Link="Resources\Lighthouse.png" />
@@ -35,8 +24,5 @@
 		<ProjectReference Include="..\..\Northwind.Core\Northwind.Core.csproj" />
 		<ProjectReference Include="..\..\Northwind.Mvvm\Northwind.Mvvm.csproj" />
 		<ProjectReference Include="..\..\Services\Northwind.Services.Interfaces\Northwind.Services.Interfaces.csproj" />
-	</ItemGroup>
-	<ItemGroup>
-	  <Folder Include="Resources\Images\" />
 	</ItemGroup>
 </Project>

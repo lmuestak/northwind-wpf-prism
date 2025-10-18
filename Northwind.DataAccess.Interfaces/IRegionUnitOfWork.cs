@@ -1,8 +1,6 @@
-﻿using Northwind.Data;
-
-namespace Northwind.DataAccess
+﻿namespace Northwind.DataAccess
 {
-    public interface IRegionUnitOfWork : IUnitOfWork<Region>
+    public interface IRegionUnitOfWork : IUnitOfWork<Data.Region>
     {
 
     }

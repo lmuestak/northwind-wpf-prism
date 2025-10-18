@@ -1,16 +1,15 @@
 ﻿using MaterialDesignThemes.Wpf;
 using Northwind.Data;
 using Northwind.DataAccess;
-using Northwind.Modules.Interfaces;
-using Northwind.Modules.ViewModels;
-using Northwind.Modules.Views;
 using Northwind.Services.Interfaces;
+using Northwind.ViewModels;
+using Northwind.Views;
 using Prism.Ioc;
 using Prism.Modularity;
 using Prism.Navigation.Regions;
 using System;
 
-namespace Northwind.Modules
+namespace Northwind
 {
 
     public class EmployeeModule : IModule
@@ -34,7 +33,7 @@ namespace Northwind.Modules
             NavigationService.Add(navItem);
             registry.Register<Employee>();
             registry.Register<EmployeeListViewModel>();
-            registry.Register<IEmployeeViewModel, EmployeeViewModel>();
+            //registry.Register<IEmployeeViewModel, EmployeeViewModel>();
             if (registry.IsRegistered<IEmployeeUnitOfWork>() == false)
             {
                 registry.RegisterSingleton<IEmployeeUnitOfWork, EmployeeUnitOfWork>();

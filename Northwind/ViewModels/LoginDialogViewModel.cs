@@ -1,8 +1,6 @@
-﻿using Northwind.Core;
-using Northwind.DataAccess;
-using Northwind.Modules.Interfaces;
-using Northwind.Modules.Views;
+﻿using Northwind.DataAccess;
 using Northwind.Mvvm;
+using Northwind.Views;
 using Prism.Commands;
 using Prism.Dialogs;
 using Prism.Ioc;
@@ -13,48 +11,55 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using Unity;
 
 namespace Northwind.ViewModels
 {
     public class LoginDialogViewModel : ViewModelBase, IDialogAware
     {
 
-        private IEmployeeUnitOfWork _unitOfWork;
-        private IEmployeeViewModel _selectedEmployee;
-        private ObservableCollection<IEmployeeViewModel> _employees;
-        public IEmployeeUnitOfWork UnitOfWork
+        private EmployeeViewModel _selectedEmployee;
+        private ObservableCollection<EmployeeViewModel> _employees;
+
+        public LoginDialogViewModel()
         {
-            get { return _unitOfWork; }
-            private set { _unitOfWork = value; }
+            GetEmployeesAsync().ContinueWith(t =>
+            {
+                if (t.Exception == null)
+                {
+                    Employees = new ObservableCollection<EmployeeViewModel>(t.Result);
+                }
+            }, TaskScheduler.FromCurrentSynchronizationContext());
         }
 
-        public ObservableCollection<IEmployeeViewModel> Employees
+        public IEmployeeUnitOfWork UnitOfWork => Container.Resolve<IEmployeeUnitOfWork>();
+
+        public ObservableCollection<EmployeeViewModel> Employees
         {
             get => _employees;
             private set => SetProperty(ref _employees, value);
         }
 
-        private async Task<IEmployeeViewModel[]> GetEmployeesAsync()
+        private async Task<EmployeeViewModel[]> GetEmployeesAsync()
         {
             IsLoading = true;
-            //await Task.Delay(5000);
+            await Task.Delay(5000);
             try
             {
-                var employees = await _unitOfWork.GetAsync();
-                var result = new List<IEmployeeViewModel>();
+                var employees = await UnitOfWork.GetAsync();
+                var result = new List<EmployeeViewModel>();
                 foreach (var employee in employees)
                 {
-                    var vm = Container.Resolve<IEmployeeViewModel>();
-                    vm.Model = employee;
+                    var vm = employee.ToViewModel();
                     result.Add(vm);
                 }
                 IsLoading = false;
                 return result.ToArray();
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 Message = ex.StackTrace;
-                return Array.Empty<IEmployeeViewModel>();
+                return [];
             }
             finally
             {
@@ -70,7 +75,7 @@ namespace Northwind.ViewModels
         private string _message;
         private AsyncDelegateCommand _loginCommand;
 
-        public IEmployeeViewModel SelectedEmployee
+        public EmployeeViewModel SelectedEmployee
         {
             get => _selectedEmployee;
             set
@@ -139,17 +144,6 @@ namespace Northwind.ViewModels
         {
             return !string.IsNullOrEmpty(Username) && !string.IsNullOrEmpty(Password);
         }
-        public LoginDialogViewModel(IContainerExtension container, IEmployeeUnitOfWork unitOfWork) : base(container)
-        {
-            UnitOfWork = unitOfWork;
-            GetEmployeesAsync().ContinueWith(t =>
-            {
-                if (t.Exception == null)
-                {
-                    Employees = new ObservableCollection<IEmployeeViewModel>(t.Result);
-                }
-            }, TaskScheduler.FromCurrentSynchronizationContext());
-        }
 
         public DialogCloseListener RequestClose { get; }
         public bool CanCloseDialog() => true;
@@ -163,7 +157,7 @@ namespace Northwind.ViewModels
 
         private async Task OnExecuteLogin()
         {
-            var employees = Employees ?? new ObservableCollection<IEmployeeViewModel>(await GetEmployeesAsync());
+            var employees = Employees ?? new ObservableCollection<EmployeeViewModel>(await GetEmployeesAsync());
             var employee = Employees.FirstOrDefault(_ => _.Email.Equals(Username, System.StringComparison.OrdinalIgnoreCase));
             if (employee != null && employee != default && Password == "Passw0rd")
             {

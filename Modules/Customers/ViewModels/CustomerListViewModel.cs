@@ -1,6 +1,6 @@
 ﻿using Prism.Mvvm;
 
-namespace Northwind.Modules.ViewModels
+namespace Northwind.ViewModels
 {
     public class CustomerListViewModel : BindableBase
     {

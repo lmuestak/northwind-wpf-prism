@@ -1,0 +1,78 @@
+﻿<UserControl x:Class="Northwind.Widgets.SalesByCategoryPieChartWidget"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:local="clr-namespace:Northwind.Widgets"
+             xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:prism="http://prismlibrary.com/"
+             xmlns:widgets="clr-namespace:Northwind.ViewModels.Widgets"
+             d:DataContext="{d:DesignInstance Type=widgets:SalesByCategoryPieChartWidgetViewModel}"
+             d:DesignHeight="320"
+             d:DesignWidth="640"
+             mc:Ignorable="d">
+
+    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="10" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Border HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"
+                BorderBrush="{StaticResource PrimaryColorBrush}"
+                BorderThickness="0,0,0,1">
+            <TextBlock Margin="0,10"
+                       Foreground="{StaticResource PrimaryColorBrush}"
+                       Text="{Binding Title}"
+                       TextAlignment="Center" />
+        </Border>
+        <Border Grid.Row="2"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"
+                Visibility="{Binding Path=IsLoading, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BoolToVisiblityConverter}}">
+            <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <ProgressBar Grid.Row="0"
+                             Grid.Column="0"
+                             Width="120"
+                             Height="120"
+                             HorizontalAlignment="Stretch"
+                             VerticalAlignment="Stretch"
+                             IsIndeterminate="True"
+                             Style="{StaticResource MaterialDesignCircularProgressBar}"
+                             Value="0" />
+                <TextBlock Grid.Row="0"
+                           Grid.Column="0"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           Foreground="{StaticResource PrimaryColorBrush}"
+                           Text="Loading..." />
+            </Grid>
+        </Border>
+        <Border Grid.Row="2"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"
+                Visibility="{Binding Path=IsLoading, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BoolToVisiblityConverterInverted}}">
+            <lvc:PieChart InnerRadius="{Binding Path=InnerRadius}"
+                          LegendLocation="Right"
+                          Series="{Binding Series}">
+                <lvc:PieChart.ChartLegend>
+                    <lvc:DefaultLegend BulletSize="20"
+                                       FontSize="14"
+                                       Foreground="{StaticResource PrimaryColorBrush}" />
+                </lvc:PieChart.ChartLegend>
+                <lvc:PieChart.DataTooltip>
+                    <lvc:DefaultTooltip BulletSize="20" />
+                </lvc:PieChart.DataTooltip>
+            </lvc:PieChart>
+        </Border>
+    </Grid>
+</UserControl>

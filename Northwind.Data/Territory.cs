@@ -14,14 +14,15 @@ namespace Northwind.Data
         [Key]
         [Column("TerritoryID", Order = 0)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public string TerritoryId { get; set; }
+        public string? TerritoryId { get; set; }
 
         /// <summary>
         /// Gets or sets the territory description.
         /// </summary>
         [Required]
         [StringLength(50)]
-        public string Description { get; set; }
+        [Column("TerritoryDescription", Order = 1)]
+        public string? Description { get; set; }
 
         /// <summary>
         /// Gets or sets the region id.
@@ -31,11 +32,11 @@ namespace Northwind.Data
         /// <summary>
         /// Gets or sets the region.
         /// </summary>
-        public virtual Region Region { get; set; }
+        public virtual Region? Region { get; set; }
 
         /// <summary>
         /// Gets or sets the employee territories.
         /// </summary>
-        public virtual ICollection<EmployeeTerritory> EmployeeTerritories { get; set; }
+        public virtual ICollection<EmployeeTerritory>? EmployeeTerritories { get; set; }
     }
 }

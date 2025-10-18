@@ -1,12 +1,12 @@
 ﻿using Northwind.Mvvm;
 using Prism.Ioc;
 
-namespace Northwind.Modules.ViewModels
+namespace Northwind.ViewModels
 {
     public class EmployeeListViewModel : ViewModelBase
     {
-        public EmployeeListViewModel(IContainerExtension container) : base(container)
-        {
-        }
+        //public EmployeeListViewModel(IContainerExtension container) : base(container)
+        //{
+        //}
     }
 }

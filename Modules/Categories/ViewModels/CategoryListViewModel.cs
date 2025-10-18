@@ -1,5 +1,5 @@
 ﻿using Northwind.DataAccess;
-using Northwind.Modules.Dialogs;
+using Northwind.Dialogs;
 using Northwind.Mvvm;
 using Prism.Commands;
 using Prism.Dialogs;
@@ -10,7 +10,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Northwind.Modules.ViewModels
+namespace Northwind.ViewModels
 {
     public class CategoryListViewModel : ViewModelBase
     {
@@ -30,10 +30,10 @@ namespace Northwind.Modules.ViewModels
 
         #endregion
 
-        public CategoryListViewModel(IContainerExtension container) : base(container)
-        {
-            LoadCategoriesAsync();
-        }
+        //public CategoryListViewModel(IContainerExtension container) : base(container)
+        //{
+        //    LoadCategoriesAsync();
+        //}
         
         public string Message
         {
@@ -78,8 +78,8 @@ namespace Northwind.Modules.ViewModels
                 foreach (var category in categories)
                 {
                     var vm = Container.Resolve<CategoryViewModel>();
-                    vm.Model = category;
-                    result.Add(vm);
+                    //vm.Model = category;
+                    //result.Add(vm);
                 }
                 ShellViewModel.IsBusy = false;
                 IsLoading = false;

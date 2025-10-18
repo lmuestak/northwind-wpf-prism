@@ -8,13 +8,38 @@
 	  <PackageReference Include="LiveCharts.Core" Version="0.9.8" />
 	  <PackageReference Include="LiveCharts.Wpf.Core" Version="0.9.8" />
 	  <PackageReference Include="Prism.Wpf" Version="9.0.537" />
+	  <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.135" />
   </ItemGroup>
   <ItemGroup>
+	  <ProjectReference Include="..\..\Northwind.Controls\Northwind.Controls.csproj" />
 	  <ProjectReference Include="..\..\Northwind.Core\Northwind.Core.csproj" />
 	  <ProjectReference Include="..\..\Northwind.DataAccess.Interfaces\Northwind.DataAccess.Interfaces.csproj" />
 	  <ProjectReference Include="..\..\Northwind.DataAccess\Northwind.DataAccess.csproj" />
 	  <ProjectReference Include="..\..\Northwind.Data\Northwind.Data.csproj" />
 	  <ProjectReference Include="..\..\Services\Northwind.Services.Interfaces\Northwind.Services.Interfaces.csproj" />
 	  <ProjectReference Include="..\Dashboard.Interfaces\Modules.Dashboard.Interfaces.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Controls\ShipperSelector.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Controls\SupplierSelector.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Controls\CustomerSelector.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Controls\EmployeeSelector.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Controls\ProductSelector.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Controls\CategorySelector.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Controls\TerritorySelector.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
 </Project>

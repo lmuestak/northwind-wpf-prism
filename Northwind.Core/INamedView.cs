@@ -1,4 +1,4 @@
-﻿namespace Northwind.Core
+﻿namespace Northwind
 {
     public interface INamedView
     {

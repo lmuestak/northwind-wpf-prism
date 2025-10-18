@@ -17,38 +17,28 @@
                     Orientation="Vertical">
             <Border HorizontalAlignment="Center"
                     VerticalAlignment="Center"
-                    BorderBrush="#E0E0E0"
-                    BorderThickness="4"
+                    BorderBrush="#EEEEEE"
+                    BorderThickness="6"
                     CornerRadius="90">
                 <Border.Effect>
                     <DropShadowEffect BlurRadius="25"
                                       Opacity=".075"
                                       ShadowDepth="0" />
                 </Border.Effect>
+
                 <Border HorizontalAlignment="Center"
                         VerticalAlignment="Center"
-                        BorderBrush="#EEEEEE"
-                        BorderThickness="4"
+                        BorderBrush="#F6F6F6"
+                        BorderThickness="8"
                         CornerRadius="90">
-
-                    <Border HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            BorderBrush="#F5F5F5"
-                            BorderThickness="4"
-                            CornerRadius="90">
-                        <Rectangle Width="120"
-                                   Height="120"
-                                   RadiusX="90"
-                                   RadiusY="90"
-                                   ToolTip="{Binding Path=CurrentUser.Title}"
-                                   ToolTipService.BetweenShowDelay="0"
-                                   ToolTipService.HasDropShadow="True"
-                                   ToolTipService.InitialShowDelay="0">
-                            <Rectangle.Fill>
-                                <ImageBrush ImageSource="{Binding Path=CurrentUser.LastName, Converter={StaticResource NameToImageConverter}}" />
-                            </Rectangle.Fill>
-                        </Rectangle>
-                    </Border>
+                    <Rectangle Width="120"
+                               Height="120"
+                               RadiusX="90"
+                               RadiusY="90">
+                        <Rectangle.Fill>
+                            <ImageBrush ImageSource="{Binding Path=CurrentUser.LastName, Converter={StaticResource NameToImageConverter}}" />
+                        </Rectangle.Fill>
+                    </Rectangle>
                 </Border>
             </Border>
             <TextBlock Margin="0,10,0,0"
@@ -58,7 +48,7 @@
                        TextAlignment="Center" />
             <TextBlock FontSize="10"
                        Foreground="{StaticResource PrimaryColorBrush}"
-                       Text="{Binding Path=CurrentUser.Email}"
+                       Text="{Binding Path=CurrentUser.TitleOfCourtesyAndPosition}"
                        TextAlignment="Center" />
 
         </StackPanel>

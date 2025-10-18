@@ -1,15 +1,13 @@
 ﻿using MaterialDesignThemes.Wpf;
-using Northwind.Core;
-using Northwind.Modules.Default.ViewModels;
-using Northwind.Modules.Default.Views;
-using Northwind.Modules.Views;
 using Northwind.Services.Interfaces;
+using Northwind.ViewModels;
+using Northwind.Views;
 using Prism.Ioc;
 using Prism.Modularity;
 using Prism.Navigation.Regions;
 using System;
 
-namespace Northwind.Modules
+namespace Northwind
 {
     public class DefaultModule : IModule
     {
@@ -23,7 +21,7 @@ namespace Northwind.Modules
         public INavigationService NavigationService => Container.Resolve<INavigationService>();
         public void OnInitialized(IContainerProvider containerProvider)
         {
-            RegionManager.RequestNavigate(RegionNames.ContentRegion, nameof(DefaultView));
+            //RegionManager.RequestNavigate(RegionNames.ContentRegion, nameof(DefaultView));
         }
 
         public void RegisterTypes(IContainerRegistry registry)
@@ -42,6 +40,7 @@ namespace Northwind.Modules
             registry.Register<DefaultView>();
             registry.Register<SettingsView>();
             registry.Register<HelpView>();
+
             registry.RegisterForNavigation<DefaultView>(nameof(DefaultView));
             registry.RegisterForNavigation<SettingsView>(nameof(SettingsView));
             registry.RegisterForNavigation<HelpView>(nameof(HelpView));

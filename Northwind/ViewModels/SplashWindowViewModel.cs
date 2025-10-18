@@ -9,9 +9,9 @@ namespace Northwind.ViewModels
         private int _value = 0;
         private string _status = "Initializing...";
 
-        public SplashWindowViewModel(IContainerExtension container) : base(container)
-        {
-        }
+        //public SplashWindowViewModel(IContainerExtension container) : base(container)
+        //{
+        //}
 
         public string Status
         {

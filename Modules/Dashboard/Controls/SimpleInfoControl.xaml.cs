@@ -1,11 +1,10 @@
 ﻿using MaterialDesignThemes.Wpf;
 using System.ComponentModel;
 using System.Drawing;
-using System.Text.Json;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace Northwind.Modules.Controls
+namespace Northwind.Controls
 {
     /// <summary>
     /// Interaction logic for SimpleInfoControl.xaml

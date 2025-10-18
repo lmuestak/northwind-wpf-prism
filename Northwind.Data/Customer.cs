@@ -14,72 +14,72 @@ namespace Northwind.Data
         [Key]
         [Column("CustomerID", Order = 0)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public string CustomerId { get; set; }
+        public string CustomerId { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the company name.
         /// </summary>
         [StringLength(40)]
-        public string CompanyName { get; set; }
+        public string? CompanyName { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the contact name.
         /// </summary>
         [StringLength(30)]
-        public string ContactName { get; set; }
+        public string? ContactName { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the contact title.
         /// </summary>
         [StringLength(30)]
-        public string ContactTitle { get; set; }
+        public string? ContactTitle { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the address.
         /// </summary>
         [StringLength(60)]
-        public string Address { get; set; }
+        public string? Address { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the city.
         /// </summary>
         [StringLength(15)]
-        public string City { get; set; }
+        public string? City { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the region.
         /// </summary>
         [StringLength(15)]
-        public string Region { get; set; }
+        public string? Region { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the postal code.
         /// </summary>
         [StringLength(10)]
-        public string PostalCode { get; set; }
+        public string? PostalCode { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the country.
         /// </summary>
         [StringLength(15)]
-        public string Country { get; set; }
+        public string? Country { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the phone.
         /// </summary>
         [StringLength(24)]
-        public string Phone { get; set; }
+        public string? Phone { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the fax.
         /// </summary>
         [StringLength(24)]
-        public string Fax { get; set; }
+        public string? Fax { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the orders.
         /// </summary>
-        public virtual ICollection<Order> Orders { get; set; }
+        public virtual ICollection<Order>? Orders { get; set; }
 
         /// <summary>
         /// Gets or sets the customer demographics.

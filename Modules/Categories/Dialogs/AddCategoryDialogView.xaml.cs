@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace Northwind.Modules.Dialogs
+namespace Northwind.Dialogs
 {
     /// <summary>
     /// Interaction logic for AddCategoryDialogView.xaml

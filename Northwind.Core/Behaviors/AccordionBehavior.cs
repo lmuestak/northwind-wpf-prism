@@ -3,7 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 
-namespace Northwind.Core.Behaviors
+namespace Northwind.Behaviors
 {
     public static class AccordionBehavior
     {

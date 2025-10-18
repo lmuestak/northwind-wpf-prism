@@ -1,5 +1,4 @@
 ﻿using Northwind.Services.Interfaces;
-using Prism.Dialogs;
 
 namespace Northwind.Services
 {

@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Northwind.Data
 {
-    [Table("Regions", Schema = "dbo")]
+    [Table("Region", Schema = "dbo")]
     public partial class Region
     {
         /// <summary>
@@ -19,11 +19,11 @@ namespace Northwind.Data
         [Required]
         [StringLength(50)]
         [Column("RegionDescription")]
-        public string Description { get; set; }
+        public string? Description { get; set; }
 
         /// <summary>
         /// Gets or sets the territories.
         /// </summary>
-        public virtual ICollection<Territory> Territories { get; set; }
+        public virtual ICollection<Territory>? Territories { get; set; }
     }
 }

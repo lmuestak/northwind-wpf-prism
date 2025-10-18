@@ -434,3 +434,9 @@
     </ScrollViewer>
 </UserControl>
 
+
+                                  EndDate="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Static local:DateSelector}}, Path=EndDate}"
+                                  MaximumDate="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Static local:DateSelector}}, Path=MaximumDate}"
+                                  MinimumDate="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Static local:DateSelector}}, Path=MinimumDate}"
+                                  ShowPickers="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Static local:DateSelector}}, Path=ShowDates}"
+                                  StartDate="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Static local:DateSelector}}, Path=StartDate}" 

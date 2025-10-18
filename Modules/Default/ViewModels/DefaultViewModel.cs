@@ -3,7 +3,7 @@ using Northwind.Services.Interfaces;
 using Prism.Ioc;
 using Prism.Navigation.Regions;
 
-namespace Northwind.Modules.Default.ViewModels
+namespace Northwind.ViewModels
 {
     public class DefaultViewModel : ViewModelBase
     {
@@ -14,11 +14,11 @@ namespace Northwind.Modules.Default.ViewModels
             set { SetProperty(ref _message, value); }
         }
 
-        public DefaultViewModel(IContainerExtension container, IMessageService messageService) :
-            base(container)
-        {
-            //Message = messageService.GetMessage();
-        }
+        //public DefaultViewModel(IContainerExtension container, IMessageService messageService) :
+        //    base(container)
+        //{
+        //    //Message = messageService.GetMessage();
+        //}
 
         public override void OnNavigatedTo(NavigationContext navigationContext)
         {
